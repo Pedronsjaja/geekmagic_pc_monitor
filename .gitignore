@@ -1,0 +1,21 @@
+# Python environments and caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+
+# Local configuration and generated device data
+config.json
+config.performance-ready.json
+.pcmon_state.json
+preview.jpg
+backup_*/
+*.log
+.env
+.env.*
+
+# Editor and OS files
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store

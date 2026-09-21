@@ -1,0 +1,6 @@
+Pillow>=10.0
+psutil>=5.9
+requests>=2.31
+# Opcionais no Windows para temperatura via LibreHardwareMonitor:
+wmi>=1.5.1; platform_system=="Windows"
+pywin32>=306; platform_system=="Windows"
