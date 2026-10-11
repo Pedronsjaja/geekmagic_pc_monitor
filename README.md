@@ -1,4 +1,45 @@
-# GeekMagic SmallTV Ultra — Monitor de PC (sem trocar firmware)
+<div align="center">
+
+<h1>📺 GeekMagic &#183; PC Monitor</h1>
+<p><strong>As m&#233;tricas do computador na sua SmallTV Ultra, com firmware original.</strong></p>
+<p><kbd>Python &#183; Windows / Linux &#183; HTTP local</kbd></p>
+
+<p><a href="https://github.com/Pedronsjaja/geekmagic_pc_monitor/stargazers"><img alt="Estrelas no GitHub" src="https://img.shields.io/github/stars/Pedronsjaja/geekmagic_pc_monitor?style=flat-square&amp;color=147d68"/></a> <a href="https://github.com/Pedronsjaja/geekmagic_pc_monitor/commits/main"><img alt="Último commit" src="https://img.shields.io/github/last-commit/Pedronsjaja/geekmagic_pc_monitor?style=flat-square&amp;color=235789"/></a></p>
+<p><a href="#inicio-rapido">Comece aqui</a> · <a href="#guia-do-projeto">Documentação</a> · <a href="https://github.com/Pedronsjaja/geekmagic_pc_monitor/tree/main">Arquivos</a></p>
+
+</div>
+
+<a id="inicio-rapido"></a>
+## 🚀 Comece aqui
+
+**[Ver a configuração de exemplo](config.example.json)**
+
+| Métricas | Tela | Hardware preservado |
+| --- | --- | --- |
+| CPU, RAM, rede e sensores quando disponíveis. | Imagens 240 × 240 enviadas pela rede local. | Sem trocar firmware, placa ou soldar componentes. |
+
+### Caminho do projeto
+
+```mermaid
+flowchart LR
+  N0["Configurar rede"]
+  N1["Coletar métricas"]
+  N0 --> N1
+  N2["Gerar imagem"]
+  N1 --> N2
+  N3["Exibir na SmallTV"]
+  N2 --> N3
+```
+
+<a id="guia-do-projeto"></a>
+## 📖 Documentação
+
+<details>
+<summary>Ver a prévia de exemplo da tela</summary>
+
+![Exemplo da tela do GeekMagic](preview_example.jpg)
+
+</details>
 
 Projeto para transformar um **GeekMagic SmallTV Ultra / ESP-12F (ESP8266)** em um monitor de PC usando **somente o firmware original**.
 
@@ -895,3 +936,4 @@ por 12 segundos
 ```
 
 Isso evita tanto demora excessiva quanto ficar piscando de uma tela para outra.
+
