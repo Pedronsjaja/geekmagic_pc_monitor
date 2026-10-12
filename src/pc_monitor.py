@@ -634,11 +634,12 @@ class SmallTV:
         return self.get("/set", params={"img": path})
 
     def delete_image(self, filename):
+        if not owned_frame(filename):
+            raise ValueError('Refusing to delete an unowned image')
         path = f"/image/{filename}"
-        try:
-            return self.get("/delete", params={"file": path})
-        except Exception:
-            return None
+        response = self.get("/delete", params={"file": path})
+        response.raise_for_status()
+        return response
 
     def filelist(self):
         try:
@@ -718,24 +719,41 @@ def discover():
         print("Veja o IP no roteador ou na interface do relogio.")
 
 
+def owned_frame(filename):
+    return isinstance(filename, str) and re.fullmatch(r'pcmon_[A-Za-z0-9_.-]+', filename) is not None
+
+
+def remove_cached_frame(tv, item):
+    filename = item.get('filename')
+    if not owned_frame(filename):
+        return False
+    try:
+        tv.delete_image(filename)
+    except requests.RequestException as error:
+        print(f'Falha ao remover {filename}; mantido no cache: {error}', file=sys.stderr)
+        return False
+    return True
+
+
 def cleanup(tv: SmallTV, state):
     frames = state.get("frames", [])
     for item in list(frames):
-        fn = item.get("filename")
-        if fn and fn.startswith("pcmon_"):
-            tv.delete_image(fn)
-            print("Removido:", fn)
-    state["frames"] = []
+        if remove_cached_frame(tv, item):
+            frames.remove(item)
+            print("Remocao HTTP aceita:", item['filename'])
+    state["frames"] = frames
     save_state(state)
 
 
 def trim_cache(tv: SmallTV, state, max_frames: int):
     frames = state.get("frames", [])
-    while len(frames) > max_frames:
-        item = frames.pop(0)
-        fn = item.get("filename")
-        if fn:
-            tv.delete_image(fn)
+    if max_frames < 0:
+        raise ValueError('max_frames must be nonnegative')
+    for item in list(frames):
+        if len(frames) <= max_frames:
+            break
+        if remove_cached_frame(tv, item):
+            frames.remove(item)
     state["frames"] = frames
     save_state(state)
 

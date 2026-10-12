@@ -937,3 +937,7 @@ por 12 segundos
 
 Isso evita tanto demora excessiva quanto ficar piscando de uma tela para outra.
 
+
+## Engenharia e validacao
+
+[Estado tecnico, validacao e proximos passos](docs/engineering-status.md).
